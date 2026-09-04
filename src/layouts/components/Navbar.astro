@@ -1,0 +1,128 @@
+---
+interface NavItem {
+  id: string;
+  label: string;
+  href: string;
+  icon:string;
+}
+
+interface Props {
+  active?: string;
+}
+
+const { active = "comercial" } = Astro.props;
+
+const items: NavItem[] = [
+  { id: "perfil", label: "Perfil", href: "/",icon:"bx bx-grid-column-right"},
+  { id: "comercial", label: "Comercial", href: "/Comercial",icon:"bx bx-community"},
+  { id: "proyectos", label: "Proyectos", href: "/Proyectos",icon:"bx bx-business" },
+  //{ id: "equipo", label: "Equipo", href: "/Equipo",icon:"" },
+  //{ id: "referidos", label: "Referidos", href: "/referidos",icon:"" },
+];
+---
+
+<nav class="navbar" aria-label="Navegación principal">
+  <div class="navbar-top">
+    <span class="navbar-logo" aria-hidden="true">◆</span>
+  </div>
+
+  <ul class="navbar-items">
+    {items.map((item) => (
+      <li>
+        <a
+          href={item.href}
+          class:list={["navbar-item", { active: item.id === active }]}
+          aria-current={item.id === active ? "page" : undefined}
+          title={item.label}
+        >
+          
+          <span class={item.icon} aria-hidden="true"></span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="navbar-bottom">
+    <a href="/" class="navbar-item" title="Organigrama">
+      <span class="bx bx-sitemap" aria-hidden="true"></span>
+    </a>
+    <a href="/" class="navbar-item" title="Configuración">
+      <span class="bx bx-cog" aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+<style>
+  .navbar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--nav-width);
+    background: var(--color-primary-600);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0;
+    z-index: 20;
+  }
+
+  .navbar-top {
+    margin-bottom: 24px;
+  }
+
+  .navbar-logo {
+    color: white;
+    font-size: 20px;
+    opacity: 0.9;
+  }
+
+  .navbar-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .navbar-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    color: rgba(255, 255, 255, 0.75);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .navbar-item:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+  }
+
+  .navbar-item.active {
+    background: white;
+    color: var(--color-primary-600);
+  }
+
+  .navbar-item:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+
+  .navbar-dot {
+    width: 18px;
+    height: 18px;
+    border: 2px solid currentColor;
+    border-radius: 5px;
+  }
+
+  .navbar-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+</style>

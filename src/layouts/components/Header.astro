@@ -1,0 +1,131 @@
+---
+interface Props {
+  section: string;
+  subsection: string;
+  primaryAction?: string;
+}
+
+const { section, subsection, primaryAction = "Crear" } = Astro.props;
+---
+
+<header class="header">
+  <div class="header-titles">
+    <h1>{section}</h1>
+    <span class="breadcrumb-sep" aria-hidden="true">›</span>
+    <span class="subsection">{subsection}</span>
+  </div>
+
+  <div class="header-actions">
+    <label class="search">
+      <span class="sr-only">Buscar</span>
+      <input type="search" placeholder="Buscar..." />
+    </label>
+
+    <button class="btn btn-primary">
+      <span aria-hidden="true">+</span> {primaryAction}
+    </button>
+    <button class="btn btn-ghost" id="open-harmony">
+      <span aria-hidden="true"><i class="bx bx-brain-circuit" /></span> Modo HarmonyIA
+    </button>
+  </div>
+</header>
+
+<style>
+  .header {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .header-titles {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .header-titles h1 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .breadcrumb-sep {
+    color: var(--color-text-muted);
+  }
+
+  .subsection {
+    color: var(--color-text-muted);
+    font-size: 15px;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .search input {
+    height: 38px;
+    padding: 0 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    min-width: 220px;
+    font-size: 14px;
+  }
+
+  .search input:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 1px;
+  }
+
+  .btn {
+    height: 38px;
+    padding: 0 16px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-primary {
+    background: var(--color-primary-600);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-700);
+  }
+
+  .btn-ghost {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-border);
+  }
+
+  .btn-ghost:hover {
+    background: var(--color-primary-50);
+    border-color: var(--color-primary-400);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+</style>
+<script>
+  import "../../harmonny/voice"
+</script>
