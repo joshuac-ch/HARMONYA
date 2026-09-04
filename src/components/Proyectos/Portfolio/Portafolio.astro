@@ -1,0 +1,15 @@
+---
+import  ProjectCard from "./components/ProjectCard.astro";
+import { getProjects } from "@/services/projects";
+const data_proyects=await getProjects()
+---
+
+<div class="">
+    <p class="text-center text-2xl font-bold p-4">Lista de Proyectos</p>
+    <div class="px-20 py-10 grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
+    {data_proyects.map((project: any) => (
+        <ProjectCard project={project} />
+    ))}
+    </div>
+    
+</div>

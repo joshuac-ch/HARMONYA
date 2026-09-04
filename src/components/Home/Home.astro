@@ -1,3 +1,586 @@
-<div>
-    <p>Hola mundo</p>
+<div class="p-6">
+
+  <!-- Header -->
+  <div class="mb-6">
+    <p class="text-sm text-gray-500 mb-1">Comercial</p>
+    <h1 class="text-2xl font-semibold text-gray-900">
+      Resumen comercial
+    </h1>
+    <p class="text-sm text-gray-500 mt-1">
+      Una vista rápida de la gestión de tus leads
+    </p>
+  </div>
+
+  <!-- Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+
+    <!-- TOTAL LEADS -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+      <div class="flex items-start justify-between">
+
+        <div>
+          <p class="text-sm text-gray-500">
+            Total de leads
+          </p>
+
+          <h2
+            id="total-leads"
+            class="text-3xl font-bold text-gray-900 mt-2"
+          >
+            --
+          </h2>
+
+          <p class="text-xs text-gray-400 mt-2">
+            Leads registrados
+          </p>
+        </div>
+
+        <div class="w-11 h-11 rounded-xl bg-indigo-50 flex items-center justify-center">
+          <svg
+            class="w-6 h-6 text-indigo-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m4-8a4 4 0 110 8 4 4 0 000-8zm5 4a3 3 0 10-6 0 3 3 0 006 0z"
+            />
+          </svg>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- PROYECTOS -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+      <div class="flex items-start justify-between">
+
+        <div>
+          <p class="text-sm text-gray-500">
+            Proyectos
+          </p>
+
+          <h2
+            id="total-projects"
+            class="text-3xl font-bold text-gray-900 mt-2"
+          >
+            --
+          </h2>
+
+          <p class="text-xs text-gray-400 mt-2">
+            Proyectos disponibles
+          </p>
+        </div>
+
+        <div class="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center">
+          <svg
+            class="w-6 h-6 text-blue-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 21h18M5 21V5a2 2 0 012-2h10a2 2 0 012 2v16M9 7h2m-2 4h2m2-4h2m-2 4h2"
+            />
+          </svg>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- LEAD TRACKING -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+      <div class="flex items-start justify-between">
+
+        <div>
+          <p class="text-sm text-gray-500">
+            Lead Tracking
+          </p>
+
+          <h2
+            id="lead-tracking"
+            class="text-3xl font-bold text-gray-900 mt-2"
+          >
+            --
+          </h2>
+
+          <p class="text-xs text-gray-400 mt-2">
+            Leads en seguimiento
+          </p>
+        </div>
+
+        <div class="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center">
+          <svg
+            class="w-6 h-6 text-emerald-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 10V3L4 14h7v7l9-11h-7z"
+            />
+          </svg>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- HARMONY IA -->
+    <div class="bg-gradient-to-br from-indigo-600 to-violet-600 rounded-2xl p-5 shadow-sm text-white">
+
+      <div class="flex items-start justify-between">
+
+        <div>
+          <p class="text-sm text-indigo-100">
+            HarmonyIA
+          </p>
+
+          <h2 class="text-xl font-bold mt-2">
+            Tu asistente inteligente
+          </h2>
+
+          <p class="text-xs text-indigo-100 mt-2">
+            Consulta y gestiona tu CRM con IA
+          </p>
+        </div>
+
+        <div class="w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center">
+          <span class="text-xl">✦</span>
+        </div>
+
+      </div>
+
+     
+
+    </div>
+
+  </div>
+
+
+  <!-- Segunda sección -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-6">
+
+    <!-- Estado de leads -->
+    <div class="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+
+    <div class="flex items-center justify-between mb-6">
+        <div>
+        <h2 class="font-semibold text-gray-900">
+            Estado de tus leads
+        </h2>
+
+        <p class="text-sm text-gray-500 mt-1">
+            Distribución actual por etapa
+        </p>
+        </div>
+
+        <span class="text-xs text-gray-400">
+        Actualizado ahora
+        </span>
+    </div>
+
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+
+        <!-- DONA -->
+        <div class="relative h-[250px] flex items-center justify-center">
+
+        <canvas id="leadsChart"></canvas>
+
+        <!-- Centro de la dona -->
+        <div class="absolute text-center pointer-events-none">
+            <p
+            id="chart-total"
+            class="text-3xl font-bold text-gray-900"
+            >
+            --
+            </p>
+
+            <p class="text-xs text-gray-500">
+            Leads
+            </p>
+        </div>
+
+        </div>
+
+
+        <!-- DETALLE -->
+        <div class="space-y-4">
+
+        <!-- Bandeja -->
+        <div class="flex items-center justify-between">
+
+            <div class="flex items-center gap-3">
+
+            <span class="w-3 h-3 rounded-full bg-indigo-500"></span>
+
+            <span class="text-sm text-gray-600">
+                Bandeja
+            </span>
+
+            </div>
+
+            <span
+            id="legend-bandeja"
+            class="font-semibold text-gray-900"
+            >
+            --
+            </span>
+
+        </div>
+
+
+        <!-- Sin respuesta -->
+        <div class="flex items-center justify-between">
+
+            <div class="flex items-center gap-3">
+
+            <span class="w-3 h-3 rounded-full bg-orange-400"></span>
+
+            <span class="text-sm text-gray-600">
+                Contacto sin respuesta
+            </span>
+
+            </div>
+
+            <span
+            id="legend-sin-respuesta"
+            class="font-semibold text-gray-900"
+            >
+            --
+            </span>
+
+        </div>
+
+
+        <!-- Seguimiento -->
+        <div class="flex items-center justify-between">
+
+            <div class="flex items-center gap-3">
+
+            <span class="w-3 h-3 rounded-full bg-blue-400"></span>
+
+            <span class="text-sm text-gray-600">
+                Seguimiento
+            </span>
+
+            </div>
+
+            <span
+            id="legend-seguimiento"
+            class="font-semibold text-gray-900"
+            >
+            --
+            </span>
+
+        </div>
+
+
+        <!-- Lead Tracking -->
+        <div class="flex items-center justify-between p-3 rounded-xl bg-emerald-50">
+
+            <div class="flex items-center gap-3">
+
+            <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+
+            <span class="text-sm font-medium text-emerald-700">
+                Lead Tracking
+            </span>
+
+            </div>
+
+            <span
+            id="legend-tracking"
+            class="font-bold text-emerald-700"
+            >
+            --
+            </span>
+
+        </div>
+
+
+        <!-- Desestimado -->
+        <div class="flex items-center justify-between">
+
+            <div class="flex items-center gap-3">
+
+            <span class="w-3 h-3 rounded-full bg-gray-400"></span>
+
+            <span class="text-sm text-gray-600">
+                Desestimado
+            </span>
+
+            </div>
+
+            <span
+            id="legend-desestimado"
+            class="font-semibold text-gray-900"
+            >
+            --
+            </span>
+
+        </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+
+    <!-- Herramientas Harmony -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+
+      <h2 class="font-semibold text-gray-900">
+        Herramientas HarmonyIA
+      </h2>
+
+      <p class="text-sm text-gray-500 mt-1 mb-4">
+        Disponible para consultar tu CRM
+      </p>
+
+      <div class="space-y-2">
+
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50">
+          <span class="text-indigo-600 bx bx-community text-2xl"></span>
+          <span class="text-sm">Consultar leads</span>
+        </div>
+
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50">
+          <span class="text-indigo-600 bx bx-steps-up text-2xl"></span>
+          <span class="text-sm">Consultar etapas</span>
+        </div>
+
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50">
+          <span class="text-indigo-600 bx bx-report text-2xl />"></span>
+          <span class="text-sm">Analizar leads</span>
+        </div>
+
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-gray-50">
+          <span class="text-indigo-600 bx bx-discussion text-2xl"></span>
+          <span class="text-sm">Analizar conversaciones</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let leadsChart = null;
+    function setText(id, value) {
+        const element = document.getElementById(id);
+
+        if (!element) {
+            console.warn(`Elemento #${id} no encontrado`);
+            return;
+        }
+
+        element.textContent = value;
+    }
+    function renderLeadsChart(stages) {
+
+    const canvas = document.getElementById("leadsChart");
+
+    if (!canvas) return;
+
+    const total =
+        stages["Bandeja"] +
+        stages["Contacto sin respuesta"] +
+        stages["Seguimiento"] +
+        stages["Lead tracking"] +
+        stages["Desestimado"];
+
+    setText("chart-total", total);
+
+    setText("legend-bandeja", stages["Bandeja"])   
+
+    setText("legend-sin-respuesta",stages["Contacto sin respuesta"])
+    
+    setText("legend-seguimiento",stages["Seguimiento"])
+
+    setText("legend-tracking",stages["Lead tracking"])
+
+    setText("legend-desestimado",stages["Desestimado"])
+
+    if (leadsChart) {
+        leadsChart.destroy();
+    }
+
+
+    leadsChart = new Chart(canvas, {
+
+        type: "doughnut",
+
+        data: {
+
+        labels: [
+            "Bandeja",
+            "Contacto sin respuesta",
+            "Seguimiento",
+            "Lead Tracking",
+            "Desestimado"
+        ],
+
+        datasets: [{
+            data: [
+            stages["Bandeja"],
+            stages["Contacto sin respuesta"],
+            stages["Seguimiento"],
+            stages["Lead tracking"],
+            stages["Desestimado"]
+            ],
+
+            backgroundColor: [
+            "#6366f1",
+            "#fb923c",
+            "#60a5fa",
+            "#10b981",
+            "#9ca3af"
+            ],
+
+            borderWidth: 0,
+
+            hoverOffset: 5
+        }]
+
+        },
+
+        options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        cutout: "72%",
+
+        plugins: {
+
+            legend: {
+            display: false
+            },
+
+            tooltip: {
+            callbacks: {
+                label: function(context) {
+
+                const value = context.raw;
+
+                const percentage =
+                    total > 0
+                    ? ((value / total) * 100).toFixed(1)
+                    : 0;
+
+                return ` ${value} leads (${percentage}%)`;
+                }
+            }
+            }
+
+        }
+
+        }
+
+    });
+
+    }  
+  async function loadDashboard() {
+
+    try {
+
+      // =========================
+      // LEADS
+      // =========================
+
+      const leadsResponse = await fetch("/api/Leads");
+      const leads = await leadsResponse.json();
+      setText("total-leads", leads.length);
+
+
+      // =========================
+      // ETAPAS
+      // =========================
+
+      const stages = {
+        "Bandeja": 0,
+        "Contacto sin respuesta": 0,
+        "Seguimiento": 0,
+        "Lead tracking": 0,
+        "Desestimado": 0
+      };
+
+
+      leads.forEach((lead) => {
+
+        const stage = lead.etapa || lead.stage;
+
+        if (stage && stages[stage] !== undefined) {
+          stages[stage]++;
+        }
+
+      });
+      renderLeadsChart(stages)
+
+      setText("lead-tracking",stages["Lead tracking"])
+      
+      setText("stage-bandeja",stages["Bandeja"])
+      
+      setText("stage-sin-respuesta",stages["Contacto sin respuesta"])
+
+      setText("stage-seguimiento",stages["Seguimiento"])
+      
+      setText("stage-tracking",stages["Lead tracking"])
+
+      setText("stage-desestimado",stages["Desestimado"]) 
+
+
+      // =========================
+      // PROYECTOS
+      // =========================
+
+      const projectsResponse = await fetch("/api/Projects");
+      const projects = await projectsResponse.json();
+      console.log("Poryectos",projects)
+      
+      setText("total-projects",projects.length);
+
+
+    } catch (error) {
+
+      console.error(
+        "Error cargando dashboard:",
+        error
+      );
+
+    }
+
+  }
+
+
+  document.addEventListener("astro:page-load", () => {
+        loadDashboard();
+    });
+
+  
+</script>
+<!--
+  // =========================
+  // HARMONY IA
+  // =========================
+-->

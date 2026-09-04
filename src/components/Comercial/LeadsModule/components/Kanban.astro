@@ -1,0 +1,212 @@
+---
+"use client"
+import { Button } from "@/components/ui/button"
+import LeadCard from "@/components/Comercial/LeadsModule/components/LeadCard.astro"
+import { getLeads } from "@/services/leads";
+import { toast } from "@/components/ui/toast"
+import ToastButton from "@/components/ToastButton";
+import LeadDialog from "./LeadDialog";
+// Ajusta este arreglo a las etapas reales de tu Excel (mismo orden que la referencia)
+
+const ETAPAS = [
+  "Bandeja",
+  "Contacto sin respuesta",
+  "Seguimiento",
+  "Lead tracking",
+  "Desestimado",
+] as const;
+ 
+
+const leads= await getLeads()
+const columnas = ETAPAS.map((etapa) => ({
+  etapa,
+  leads: leads.filter((l: any) => l.etapa === etapa),
+}));
+
+
+
+    
+
+
+---
+<div class="flex gap-4 overflow-x-auto pb-4">
+  {columnas.map((col) => (
+    <section
+      class="kanban-column flex w-80 shrink-0 flex-col rounded-xl bg-slate-50 border border-slate-200"
+      data-etapa={col.etapa}
+    >
+      <header class="flex items-center justify-between gap-2 px-3 py-3 border-b border-slate-200">
+        <h2 class="text-sm font-semibold text-slate-700">
+          {col.etapa}
+        </h2>
+
+        <span
+          class="lead-count rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-semibold text-indigo-700"
+        >
+          {col.leads.length}
+        </span>
+      </header>
+
+      <div
+        class="kanban-dropzone flex flex-col gap-3 p-3 overflow-y-auto max-h-[calc(100vh-220px)]"
+        data-etapa={col.etapa}
+      >
+        {col.leads.length === 0 ? (
+          <p class="empty-message py-6 text-center text-xs text-slate-400">
+            Sin leads en esta etapa
+          </p>
+        ) : (
+          col.leads.map((lead: any) => (
+            <div
+              class="kanban-lead"
+              draggable="true"
+              data-lead-id={lead._id}
+              data-etapa={lead.etapa}
+            >
+               <LeadDialog
+                client:load
+                lead={lead}
+              />
+            </div>
+          ))
+        )}
+      </div>
+    </section>
+  ))}
+</div>
+
+<script>
+  function initKanbanDragAndDrop() {
+    const cards = document.querySelectorAll<HTMLElement>(".kanban-lead");
+    const columns = document.querySelectorAll<HTMLElement>(".kanban-column");
+
+    let draggedCard: HTMLElement | null = null;
+
+    cards.forEach((card) => {
+      card.addEventListener("dragstart", (event) => {
+        draggedCard = event.currentTarget as HTMLElement;
+
+        card.classList.add("opacity-50");
+      });
+
+      card.addEventListener("dragend", (event) => {
+        const card= event.currentTarget as HTMLElement;
+
+        card.classList.remove("opacity-50");
+
+        draggedCard = null;
+
+        columns.forEach((column) => {
+          column.classList.remove("ring-2", "ring-indigo-400");
+        });
+      });
+    });
+
+    columns.forEach((column) => {
+      const dropzone = column.querySelector<HTMLElement>(".kanban-dropzone");
+
+      if (!dropzone) return;
+
+      column.addEventListener("dragover", (event) => {
+        event.preventDefault();
+
+        column.classList.add("ring-2", "ring-indigo-400");
+      });
+
+      column.addEventListener("dragleave", (event) => {
+        if (!column.contains(event.relatedTarget as Node)) {
+          column.classList.remove("ring-2", "ring-indigo-400");
+        }
+      });
+
+      column.addEventListener("drop", async (event) => {
+        event.preventDefault();
+
+        column.classList.remove("ring-2", "ring-indigo-400");
+
+        if (!(draggedCard instanceof HTMLElement)) return;
+
+        const card = draggedCard;
+        const leadId = card.dataset.leadId;
+        const nuevaEtapa = column.dataset.etapa;
+        const etapaActual = card.dataset.etapa;
+        
+        if (!leadId || !nuevaEtapa) return;
+
+
+        // Si lo soltó en la misma columna, no hacemos nada
+        if (etapaActual === nuevaEtapa) return;
+
+        try {
+          const response = await fetch("/api/Leads", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: leadId,
+              etapa: nuevaEtapa,
+            }),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              data?.message || "No se pudo actualizar el lead"
+            );
+          }
+
+          // Actualizamos visualmente el Kanban
+          dropzone.appendChild(card);
+
+          card.dataset.etapa = nuevaEtapa;
+
+          updateColumnCount();
+
+          //console.log("Lead actualizado:", data);
+
+        } catch (error) {
+          console.error("Error actualizando etapa:", error);
+        }
+      });
+    });
+  }
+
+  function updateColumnCount() {
+    document.querySelectorAll<HTMLElement>(".kanban-column").forEach((column) => {
+      const count = column.querySelectorAll(".kanban-lead").length;
+
+      const counter = column.querySelector<HTMLElement>(".lead-count");
+
+      if (counter) {
+        counter.textContent = String(count);
+      }
+
+      const dropzone = column.querySelector<HTMLElement>(".kanban-dropzone");
+
+      if (!dropzone) return;
+
+      const emptyMessage = dropzone.querySelector(".empty-message");
+
+      if (count === 0 && !emptyMessage) {
+        const message = document.createElement("p");
+
+        message.className =
+          "empty-message py-6 text-center text-xs text-slate-400";
+
+        message.textContent = "Sin leads en esta etapa";
+
+        dropzone.appendChild(message);
+      }
+
+      if (count > 0 && emptyMessage) {
+        emptyMessage.remove();
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initKanbanDragAndDrop);
+
+  document.addEventListener("astro:page-load", initKanbanDragAndDrop);
+</script>
