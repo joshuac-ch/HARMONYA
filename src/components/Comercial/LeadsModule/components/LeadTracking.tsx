@@ -105,10 +105,10 @@ export default function LeadTracking({ lead_id,project_name }: Props) {
   }
    return (
     <>
-      <div className="bg-zinc-50">
+      <div className="bg-zinc-100">
 
     {/* HEADER DEL PROYECTO */}
-    <div className="border-b bg-white px-6 py-5">
+    <div className="border-b bg-zinc-100 px-6 py-5">
 
       <div className="flex items-center justify-between gap-6">
 
@@ -231,7 +231,7 @@ export default function LeadTracking({ lead_id,project_name }: Props) {
       <div className="grid grid-cols-2 gap-5">
 
         {/* Datos personales */}
-        <div className="rounded-xl border bg-white p-5 shadow-sm">
+        <div className="rounded-xl  bg-white p-5 shadow-sm">
           <div className="mb-5">
             <h3 className="font-semibold text-zinc-900">
               Datos personales
@@ -298,7 +298,7 @@ export default function LeadTracking({ lead_id,project_name }: Props) {
 
 
         {/* Agente y origen */}
-        <div className="rounded-xl border bg-white p-5 shadow-sm">
+        <div className="rounded-xl bg-white p-5 shadow-sm">
 
           <div className="mb-5">
             <h3 className="font-semibold text-zinc-900">
@@ -369,7 +369,7 @@ export default function LeadTracking({ lead_id,project_name }: Props) {
         <div className="grid grid-cols-2 gap-5">
 
         {/* Datos personales */}
-        <div className="rounded-xl border bg-white p-5 shadow-sm">
+        <div className="rounded-xl bg-white p-5 shadow-sm">
           <div className="mb-5">
             <h3 className="font-semibold text-zinc-900">
               Contacto y Ubicacion
