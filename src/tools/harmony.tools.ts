@@ -40,7 +40,7 @@ export const harmonyTools = [
                 });
             }
             const lead=leads[0]
-            const searchConversations=await fetch(`https://${lead.celular}`)
+            const searchConversations=await fetch(`https://ia.zefiron.com/dev/ia/adgent/chat-history/${lead.celular}`)
             const data=await searchConversations.json()
             return JSON.stringify(data)
             }
@@ -71,7 +71,7 @@ export const harmonyTools = [
                 });
             }
             const lead=leads[0]
-            const searchConversations=await fetch(`https://${lead.celular}`)
+            const searchConversations=await fetch(`https://ia.zefiron.com/dev/ia/adgent/conversation_summary/${lead.celular}`)
             const data=await searchConversations.json()
             return JSON.stringify(data)
             }
@@ -103,7 +103,7 @@ export const harmonyTools = [
                 });
             }
             const lead=leads[0]
-            const searchConversations=await fetch(`https://${lead.celular}`)
+            const searchConversations=await fetch(`https://ia.zefiron.com/dev/ia/adgent/lead-metrics/${lead.celular}`)
             
             const data=await searchConversations.json()
 

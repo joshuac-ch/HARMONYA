@@ -30,7 +30,7 @@ export default function LeadAgent({lead,project}:Props) {
   useEffect(()=>{
     async function getConversation(lead_id:string) {
         try{
-          const response=await fetch(`https://${lead_id}`)
+          const response=await fetch(`https://ia.zefiron.com/dev/ia/adgent/chat-history/${lead_id}`)
           const data:chatResponse =await response.json()
           console.log("GET CONVERSATIONS DATA", data);
           setchat_conversation(data.history)
@@ -40,7 +40,7 @@ export default function LeadAgent({lead,project}:Props) {
     }
     async function getSummary(lead_id:string) {
       try{
-        const response=await fetch(`https://${lead_id}`)
+        const response=await fetch(`https://ia.zefiron.com/dev/ia/adgent/conversation_summary/${lead_id}`)
         const data = await response.json()
         console.log("Summary Conversation",data)
         setsummary(data)
@@ -51,7 +51,7 @@ export default function LeadAgent({lead,project}:Props) {
     }
     async function  getInshigtsConversation(lead_id:string) {
       try{
-        const response=await fetch(`https://${lead_id}`)
+        const response=await fetch(`https://ia.zefiron.com/dev/ia/adgent/lead-metrics/${lead_id}`)
         const data = await response.json()
         console.log("Inshings Conversation",data)
         setinsights(data)
