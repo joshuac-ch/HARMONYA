@@ -1,9 +1,9 @@
 import type { APIRoute } from "astro";
-import { getLeads,updateLeadStage } from "@/services/leads";
+import { putupdateLeadByStageService,gefindAllLead } from "@/modules/leads";
 export const prerender = false;
 export const GET: APIRoute = async () => {
   try {
-    const leads = await getLeads();
+    const leads = await gefindAllLead();
     return new Response(
       JSON.stringify(leads),
       {
@@ -53,7 +53,7 @@ export const PUT: APIRoute = async ({ request }) => {
       );
     }
 
-    const result = await updateLeadStage(id, etapa);
+    const result = await putupdateLeadByStageService(id, etapa);
 
     return new Response(
       JSON.stringify(result),
