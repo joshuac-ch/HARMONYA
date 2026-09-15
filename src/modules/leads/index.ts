@@ -1,6 +1,11 @@
-import { getLeadService } from "./application/service";
-import type { Lead, LEAD_ETAPAS_TYPES } from "./domain/types";
+import { findAllLeadService,
+    findLeadByLeadIDService,
+    findLeadByNameService,
+    findLeadByStageService,
+    updateLeadByStageService } from "./application/service";
 
-export type {Lead, LEAD_ETAPAS_TYPES} from "./domain/types"
-
-export const leadsService=getLeadService()
+export const gefindAllLead=findAllLeadService
+export const getfindLeadByLeadID=findLeadByLeadIDService
+export const getfindLeadByName = findLeadByNameService
+export const getfindLeadByStage = findLeadByStageService
+export const putupdateLeadByStageService = updateLeadByStageService

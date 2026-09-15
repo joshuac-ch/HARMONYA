@@ -1,47 +1,83 @@
 import { getDatabase } from "@/lib/mongodb";
 import { LEAD_ETAPAS_TYPES, type Lead } from "../domain/types";
-import type { ProjectReference } from "../../projects/types"
 const COLLECTION= "leads";
 
-type LeadDocument = Omit<Lead, "_id"> & { _id?: unknown };
-
-function toLead(doc:LeadDocument & { _id: {toString(): string} }): Lead {
-    return{
-        _id: doc._id.toString(),
-        nombre: doc.nombre,
-        apellido: doc.apellido,
-        tipo_documento: doc.tipo_documento,
-        numero: doc.numero,
-        genero: doc.genero,
-        fecha_nacimiento: doc.fecha_nacimiento,
-        pais_origen: doc.pais_origen,
-        canal_origen: doc.canal_origen,
-        agente_asignado: doc.agente_asignado,
-        nombre_campaña: doc.nombre_campaña,
-        medio_captacion: doc.medio_captacion,
-        celular: doc.celular,
-        usuario_wasap: doc.usuario_wasap,
-        correo_electronico: doc.correo_electronico,
-        departamento: doc.departamento,
-        provincia: doc.provincia,
-        distrito: doc.distrito,
-        direccion: doc.direccion,
-        proyecto: doc.proyecto,
-        fecha_ingreso: doc.fecha_ingreso,
-        hora_ingreso: doc.hora_ingreso,
-        etapas: doc.etapas
-    }
-}
-
-export async function  findAllLeads(): Promise<Lead[]> {
+export async function  findAllLeads(){
     const db=await getDatabase()
-    const doc= await db.collection<LeadDocument>(COLLECTION).find().toArray()
-    return doc as Lead[];
+    const doc= await db.collection(COLLECTION).find().toArray()
+    return doc;
 }
 
-export async function findLeadByLeadID(leadId:string): Promise<Lead|null> {
+export async function findLeadByLeadID(leadId:string){
     const db =await getDatabase()
     const doc=await db.collection(COLLECTION).findOne({"_id":leadId})
     return doc 
     
 }
+   
+export async function findLeadByStage(stage:string) {
+    const db=await getDatabase()
+    const normalizedStage = stage.trim().toLowerCase();
+    return db.collection(COLLECTION).find({"etapa":normalizedStage}).toArray()
+  }
+  
+export async function updateLeadByStage(
+    id: string,
+    etapa: string
+  ) {
+    const db = await getDatabase();
+  
+    const normalizedStage = LEAD_ETAPAS_TYPES.find(
+      (stage) =>
+        stage.toLowerCase() === etapa.trim().toLowerCase()
+    );
+    
+    if (!normalizedStage) {
+      throw new Error(`Etapa no válida: ${etapa}`);
+    }   
+    
+    const result = await db.collection(COLLECTION).updateOne(
+      {
+        "_id":id,
+      },
+      {
+        $set: {
+          etapa:normalizedStage,
+          updatedAt: new Date(),
+        },
+      }
+    );
+  
+    if (result.matchedCount === 0) {
+      throw new Error("Lead no encontrado");
+    }
+  
+    return {
+      success: true,
+      id,
+      etapa,
+    };
+  }
+
+export async function findLeadByName(nombre: string, apellido?: string) {
+    const db = await getDatabase();
+  
+    const filter: any = {
+      nombre: {
+        $regex: nombre,
+        $options: "i",
+      },
+    };
+  
+    if (apellido) {
+      filter.apellido = {
+        $regex: apellido,
+        $options: "i",
+      };
+    }
+  
+    return await db
+      .collection(COLLECTION)
+      .find(filter)
+      .toArray();
+  }

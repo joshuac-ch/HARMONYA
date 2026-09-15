@@ -1,4 +1,4 @@
-import type { ProjectReference } from "../../projects/types";
+import type { ProjectReference } from "../../projects/domain/types";
 
 export const LEAD_ETAPAS_TYPES= [
     "Bandeja",
